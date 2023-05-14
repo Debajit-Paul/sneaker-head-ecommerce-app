@@ -8,7 +8,8 @@ Next.js Ecommerce site with Redux Toolkit, Sanity user login authentication, and
 ![sh6](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/06196ba0-ca13-4c7c-8208-72a563e1e1b7)
 ![sh2](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/2c8b14f3-de18-413f-8250-83cbbe9d5d2f)
 ![sh3](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/6c2eaa58-d2e7-4f27-be20-947ee6f9d616)
-![Screenshot 2023-05-14 204129](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/4233a679-8974-43c1-b7ff-96a056df55a3)
+![sh8](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/427f9508-dabf-44b9-ab64-fb1a6c642a7c)
+
 
 
 ## Tech Stack
