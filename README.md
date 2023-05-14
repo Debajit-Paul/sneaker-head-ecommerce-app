@@ -1,8 +1,6 @@
 # Sneaker Head
 Next.js Ecommerce site with Redux Toolkit, Sanity user login authentication, and Stripe integration.
 ![st_small_507x507-pad_600x600_f8f8f8-removebg-preview](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/525183df-b3bb-45cd-885e-9d56f526d2fc)
-
-
 ## ScreenShots
 ![sh1](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/9910d065-1807-4c40-90c2-b968597833d7)
 ![sh5](https://github.com/Debajit-Paul/ecommerce-app/assets/62774980/3e6c69ed-575c-4b53-94a7-ef00b80f4588)
