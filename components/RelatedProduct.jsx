@@ -26,7 +26,7 @@ const RelatedProduct = ({ products }) => {
         additionalTransfrom={0}
         arrows
         centerMode={false}
-        containerClass="mx-[20px]"
+        containerClass="mx-[20px] z-[1]"
         itemClass="px-[10px]"
         responsive={responsive}
       >

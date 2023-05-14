@@ -45,13 +45,11 @@ const Cart = () => {
 
     const data = await response.json();
 
-    // toast.loading('Redirecting...');
-
     stripe.redirectToCheckout({ sessionId: data.id });
   };
 
   return (
-    <div className="cart-wrapper " ref={cartRef}>
+    <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
         <button
           type="button"
