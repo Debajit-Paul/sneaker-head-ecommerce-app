@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { userLogOut as LogOut } from "./userSlice";
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -30,9 +31,18 @@ export const cartSlice = createSlice({
       const itemToUpdate = state.items.find((item) => item._id === _id);
       itemToUpdate.quantity = quantity;
     },
+    resetCart: (state) => {
+      state.items = [];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(LogOut, (state) => {
+      state.isshowCart = false;
+      state.items = [];
+    });
   },
 });
 
-export const { showCart, addItem, removeItem, updateQuantity } =
+export const { showCart, addItem, removeItem, updateQuantity, resetCart } =
   cartSlice.actions;
 export default cartSlice.reducer;

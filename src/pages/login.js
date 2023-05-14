@@ -1,18 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { userLogIn } from "../../redux/feature/userSlice";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { getError } from "../../lib/error";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { userInfo } = useSelector((state) => state.user);
+  const notify = (message) => {
+    toast.error(message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+  useEffect(() => {
+    if (userInfo) {
+      router.push("/");
+    }
+  }, [router, userInfo]);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
 
-  const submitHandler = async ({ email, password }) => {};
+  const submitHandler = async ({ email, password }) => {
+    try {
+      const { data } = await axios.post("/api/users/login", {
+        email,
+        password,
+      });
+      dispatch(userLogIn(data));
+      router.push("/");
+    } catch (err) {
+      notify(getError(err));
+    }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
+      <ToastContainer />
       <div className=" p-8 rounded flex flex-col items-center w-[450px] h-[600px]">
         <img src="./logo.svg" width={120} height={120} />
         <h3 className="text-2xl font-bold text-center mb-4 w-[250px]">

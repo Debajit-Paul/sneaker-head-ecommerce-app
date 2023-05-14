@@ -13,7 +13,9 @@ const Product = ({ product }) => {
         />
         <div>
           <p className="product-name  mt-4">{product.name}</p>
-          <p className="product-price">Rs. {product.price}</p>
+          <p className="product-price mb-3 font-urbanist">
+            Rs. {product.price}
+          </p>
         </div>
       </div>
     </Link>

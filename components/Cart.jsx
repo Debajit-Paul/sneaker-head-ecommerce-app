@@ -14,10 +14,14 @@ import {
   removeItem,
 } from "../redux/feature/cartSlice";
 import { urlFor } from "../lib/client";
+import { useRouter } from "next/router";
+import getStripe from "../lib/getStripe";
 
 const Cart = () => {
+  const router = useRouter();
   const cartRef = useRef();
   const { isshowCart, items } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [subTotal, setSubTotal] = useState(0);
   useEffect(() => {
@@ -26,8 +30,28 @@ const Cart = () => {
     );
   }, [items]);
 
+  const handleCheckout = async () => {
+    const stripe = await getStripe();
+
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(items),
+    });
+
+    if (response.statusCode === 500) return;
+
+    const data = await response.json();
+
+    // toast.loading('Redirecting...');
+
+    stripe.redirectToCheckout({ sessionId: data.id });
+  };
+
   return (
-    <div className="cart-wrapper" ref={cartRef}>
+    <div className="cart-wrapper " ref={cartRef}>
       <div className="cart-container">
         <button
           type="button"
@@ -127,7 +151,15 @@ const Cart = () => {
               <h3>Rs. {subTotal}</h3>
             </div>
             <div className="btn-container">
-              <button type="button" className="btn" onClick="">
+              <button
+                type="button"
+                className="btn"
+                onClick={() =>
+                  userInfo
+                    ? handleCheckout()
+                    : router.push("/login") && dispatch(showCart())
+                }
+              >
                 Pay with Stripe
               </button>
             </div>

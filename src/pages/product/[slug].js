@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { client, urlFor } from "../../../lib/client";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { addItem } from "../../../redux/feature/cartSlice";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { addItem, showCart } from "../../../redux/feature/cartSlice";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { RelatedProduct } from "../../../components";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,7 +19,7 @@ const ProductDetails = ({ product, products }) => {
   const notify = () => {
     toast.success("Success. Check your cart!", {
       position: "top-center",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -27,6 +27,17 @@ const ProductDetails = ({ product, products }) => {
       progress: undefined,
       theme: "dark",
     });
+  };
+  const handleBuyNow = () => {
+    notify();
+    dispatch(
+      addItem({
+        ...product,
+        quantity: qty,
+        size: selectedSize,
+      })
+    );
+    dispatch(showCart());
   };
 
   return (
@@ -60,16 +71,13 @@ const ProductDetails = ({ product, products }) => {
             <p>(Also includes all applicable duties)</p>
           </p>
 
-          {/* HEADING START */}
           <div className="flex justify-between mt-10 mb-2">
             <div className="text-md font-semibold">Select Size</div>
             <div className="text-md font-medium text-black/[0.5] cursor-pointer">
               Select Guide
             </div>
           </div>
-          {/* HEADING END */}
 
-          {/* SIZE START */}
           <div id="sizesGrid" className="grid grid-cols-3 gap-2">
             {size?.map((item, i) => (
               <div
@@ -105,9 +113,7 @@ const ProductDetails = ({ product, products }) => {
               >
                 <AiOutlineMinus />
               </span>
-              <span className="num p-2 px-4" onClick="">
-                {qty}
-              </span>
+              <span className="num p-2 px-4">{qty}</span>
               <span
                 className="plus p-2 px-4"
                 onClick={() => setQty((pre) => pre + 1)}
@@ -116,7 +122,7 @@ const ProductDetails = ({ product, products }) => {
               </span>
             </p>
           </div>
-          {console.log(product)}
+
           <div className="buttons flex flex-col">
             <button
               type="button"
@@ -142,7 +148,11 @@ const ProductDetails = ({ product, products }) => {
             >
               Add to Bag
             </button>
-            <button type="button" className="buy-now rounded-full" onClick="">
+            <button
+              type="button"
+              className="buy-now rounded-full"
+              onClick={() => handleBuyNow()}
+            >
               Buy Now
             </button>
           </div>

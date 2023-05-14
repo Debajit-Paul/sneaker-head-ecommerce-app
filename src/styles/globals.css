@@ -137,7 +137,7 @@ span.text-red {
 .product-price {
   font-weight: 800;
   margin-top: 3px;
-  color: #e82f1e;
+  color: #f02d34;
 }
 
 .hero-banner-container {
@@ -547,7 +547,6 @@ span.text-red {
   text-align: center;
   margin: 50px;
   color: #324d67;
-
   font-size: 28px;
 }
 .maylike-products-container {
@@ -568,7 +567,6 @@ span.text-red {
 }
 .success,
 .cancel {
-  width: 1000px;
   margin: auto;
   margin-top: 160px;
   background-color: #dcdcdc;

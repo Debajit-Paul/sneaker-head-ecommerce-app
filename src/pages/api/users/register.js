@@ -2,10 +2,11 @@ import { createRouter } from "next-connect";
 import bcrypt from "bcryptjs";
 import axios from "axios";
 import { signToken } from "../../../../lib/auth";
+import { client } from "../../../../lib/client";
 
-const handler = createRouter();
+const router = createRouter();
 
-handler.post(async (req, res) => {
+router.post(async (req, res) => {
   const projectId = "d8zwf6vf";
   const dataset = "production";
   const apiVersion = "2023-04-26";
@@ -22,6 +23,15 @@ handler.post(async (req, res) => {
       },
     },
   ];
+  const existUser = await client.fetch(
+    `*[_type == "user" && email == $email][0]`,
+    {
+      email: req.body.email,
+    }
+  );
+  if (existUser) {
+    return res.status(401).send({ message: "Email aleardy exists" });
+  }
   const { data } = await axios.post(
     `https://${projectId}.api.sanity.io/v${apiVersion}/data/mutate/${dataset}?returnIds=true`,
     { mutations: createMutations },
@@ -43,4 +53,4 @@ handler.post(async (req, res) => {
   res.send({ ...user, token });
 });
 
-export default handler;
+export default router.handler();

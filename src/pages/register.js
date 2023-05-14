@@ -1,20 +1,23 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-import { useRouter } from "next/router";
+import { userLogIn } from "../../redux/feature/userSlice";
+import { getError } from "../../lib/error";
 
 const RegistrationPage = () => {
-  const { userInfo } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { userInfo } = useSelector((state) => state.user);
+
   const notify = (message) => {
-    toast(message, {
+    toast.error(message, {
       position: "top-center",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -49,7 +52,7 @@ const RegistrationPage = () => {
       dispatch(userLogIn(data));
       router.push("/");
     } catch (err) {
-      notify(err.message);
+      notify(getError(err));
     }
   };
 

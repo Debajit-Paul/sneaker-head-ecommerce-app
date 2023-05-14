@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { AiOutlineShopping } from "react-icons/ai";
 import { BiMenuAltRight } from "react-icons/bi";
+import { MdLogout } from "react-icons/md";
 import { VscChromeClose } from "react-icons/vsc";
 import { useSelector, useDispatch } from "react-redux";
 import { showCart } from "../redux/feature/cartSlice";
+import { userLogOut } from "../redux/feature/userSlice";
 import Cart from "./Cart";
 import { Menu, MobileMenu } from "./";
 
@@ -20,7 +22,7 @@ const Navbar = () => {
         <Link href="/">
           <img
             src="/logo.svg"
-            className=" sm:w-[120px] sm:h-[110px] w-[80px] h-[75px] cursor-pointer"
+            className=" md:w-[120px] md:h-[110px] w-[80px] h-[75px] cursor-pointer"
           />
         </Link>
       </p>
@@ -35,14 +37,22 @@ const Navbar = () => {
         />
       )}
 
-      <div className="flex items-center gap-1 text-black">
-        <div>
-          {userInfo ? (
-            <Link href="/">{userInfo.name}</Link>
-          ) : (
+      <div className="flex items-center gap-4 text-black">
+        {userInfo ? (
+          <div
+            title="LogOut"
+            className="cursor-pointer flex gap-2 items-center bg-slate-900 rounded-full text-white p-1 px-3"
+            onClick={() => dispatch(userLogOut())}
+          >
+            {userInfo.name}
+            <MdLogout size={14} />
+          </div>
+        ) : (
+          <div className=" font-semibold">
             <Link href={"/login"}>LogIn</Link>
-          )}
-        </div>
+          </div>
+        )}
+
         <div className="flex items-center gap-8 ">
           <button
             type="button"
@@ -58,7 +68,7 @@ const Navbar = () => {
         </div>
         {isshowCart && <Cart />}
 
-        <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">
+        <div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.1] cursor-pointer relative -mr-2">
           {mobileMenu ? (
             <VscChromeClose
               className="text-[16px]"

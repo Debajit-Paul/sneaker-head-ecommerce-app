@@ -18,11 +18,10 @@ const RelatedProduct = ({ products }) => {
     mobile: {
       breakpoint: { max: 767, min: 0 },
       items: 1,
-      //   partialVisibilityGutter: 30,
     },
   };
   return (
-    <div className="mt-[50px] md:mt-[100px] mb-[100px] md:mb-0">
+    <div className="mt-[50px] md:mt-[50px] mb-[200px] md:mb-0">
       <Carousel
         additionalTransfrom={0}
         arrows
