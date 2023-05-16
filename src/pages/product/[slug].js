@@ -151,7 +151,17 @@ const ProductDetails = ({ product, products }) => {
             <button
               type="button"
               className="buy-now rounded-full"
-              onClick={() => handleBuyNow()}
+              onClick={() => {
+                if (!selectedSize) {
+                  setShowError(true);
+                  document.getElementById("sizesGrid").scrollIntoView({
+                    block: "center",
+                    behavior: "smooth",
+                  });
+                } else {
+                  handleBuyNow();
+                }
+              }}
             >
               Buy Now
             </button>
