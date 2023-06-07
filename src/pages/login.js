@@ -49,6 +49,12 @@ const LoginPage = () => {
     }
   };
 
+  const handleGuestLogin = () => {
+    const guestEmail = "guest@example.com";
+    const guestPassword = "123456";
+    submitHandler({ email: guestEmail, password: guestPassword });
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <ToastContainer />
@@ -98,6 +104,12 @@ const LoginPage = () => {
             className="w-full bg-[#F02D34] text-white font-bold py-2 rounded-full"
           >
             Log In
+          </button>
+          <button
+            onClick={handleGuestLogin}
+            className="w-full border border-[#F02D34] text-[#F02D34] bg-white font-bold py-2 rounded-full"
+          >
+            Guest Login
           </button>
           <p className=" text-gray-500 text-[13px]">
             Not a Member?{" "}
